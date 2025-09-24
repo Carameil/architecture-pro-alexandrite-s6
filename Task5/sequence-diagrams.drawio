@@ -1,0 +1,305 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0" version="24.9.1">
+  <diagram name="Cache-Aside Read" id="cache-aside">
+    <mxGraphModel dx="1735" dy="1140" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Participants -->
+        <object placeholders="1" c4Name="MES UI" c4Type="Client" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;" id="ui">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+            <mxGeometry x="50" y="50" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        
+        <object placeholders="1" c4Name="MES API" c4Type="Service" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;" id="api">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+            <mxGeometry x="250" y="50" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        
+        <object placeholders="1" c4Name="Redis Cache" c4Type="Cache" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;" id="cache">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+            <mxGeometry x="450" y="50" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        
+        <object placeholders="1" c4Name="PostgreSQL" c4Type="Database" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;" id="db">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="650" y="50" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        
+        <!-- Lifelines -->
+        <mxCell id="ui-lifeline" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" edge="1" parent="1" source="ui">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="110" y="130" as="sourcePoint" />
+            <mxPoint x="110" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="api-lifeline" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" edge="1" parent="1" source="api">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="130" as="sourcePoint" />
+            <mxPoint x="310" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="cache-lifeline" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" edge="1" parent="1" source="cache">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510" y="130" as="sourcePoint" />
+            <mxPoint x="510" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="db-lifeline" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" edge="1" parent="1" source="db">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="710" y="130" as="sourcePoint" />
+            <mxPoint x="710" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Messages -->
+        <mxCell id="msg1" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="110" y="150" as="sourcePoint" />
+            <mxPoint x="310" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg1-label" value="GET /dashboard?status=MANUFACTURING_STARTED" style="text;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="120" y="125" width="180" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="msg2" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="180" as="sourcePoint" />
+            <mxPoint x="510" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg2-label" value="GET mes:orders:status:MANUFACTURING_STARTED:v1" style="text;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="320" y="155" width="180" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Alt frame for Cache Hit -->
+        <mxCell id="alt-frame" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#000000;darkOpacity=0.05;fillColor=#FFF2CC;strokeColor=#D6B656;size=20;" vertex="1" parent="1">
+          <mxGeometry x="80" y="210" width="650" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="alt-label" value="alt [Cache Hit]" style="text;html=1;align=left;fontWeight=bold;" vertex="1" parent="1">
+          <mxGeometry x="90" y="220" width="100" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="hit-msg1" style="endArrow=block;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510" y="250" as="sourcePoint" />
+            <mxPoint x="310" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hit-msg1-label" value="[order_ids] (HIT)" style="text;html=1;align=center;color=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="350" y="225" width="120" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="hit-msg2" style="endArrow=block;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="280" as="sourcePoint" />
+            <mxPoint x="110" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hit-msg2-label" value="200 OK (fast response)" style="text;html=1;align=center;color=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="130" y="255" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Else part for Cache Miss -->
+        <mxCell id="else-label" value="else [Cache Miss]" style="text;html=1;align=left;fontWeight=bold;" vertex="1" parent="1">
+          <mxGeometry x="90" y="320" width="130" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="miss-msg1" style="endArrow=block;html=1;strokeWidth=2;strokeColor=#D32F2F;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="350" as="sourcePoint" />
+            <mxPoint x="710" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="miss-msg1-label" value="SELECT orders WHERE status=... (SLOW)" style="text;html=1;align=center;color=#D32F2F;" vertex="1" parent="1">
+          <mxGeometry x="350" y="325" width="220" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="miss-msg2" style="endArrow=block;html=1;strokeWidth=2;strokeColor=#D32F2F;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="710" y="380" as="sourcePoint" />
+            <mxPoint x="310" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="miss-msg2-label" value="orders data" style="text;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="450" y="355" width="100" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="miss-msg3" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="410" as="sourcePoint" />
+            <mxPoint x="510" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="miss-msg3-label" value="SET cache keys TTL=30s" style="text;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="320" y="385" width="180" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="miss-msg4" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="440" as="sourcePoint" />
+            <mxPoint x="110" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="miss-msg4-label" value="200 OK (cached for next time)" style="text;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="120" y="415" width="180" height="20" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+  
+  <diagram name="Write-Through" id="write-through">
+    <mxGraphModel dx="1735" dy="1140" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Participants -->
+        <object placeholders="1" c4Name="MES UI" c4Type="Client" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;" id="ui2">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+            <mxGeometry x="50" y="50" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        
+        <object placeholders="1" c4Name="MES API" c4Type="Service" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;" id="api2">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+            <mxGeometry x="220" y="50" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        
+        <object placeholders="1" c4Name="PostgreSQL" c4Type="Database" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;" id="db2">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+            <mxGeometry x="390" y="50" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        
+        <object placeholders="1" c4Name="Redis Cache" c4Type="Cache" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;" id="cache2">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+            <mxGeometry x="560" y="50" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        
+        <object placeholders="1" c4Name="RabbitMQ" c4Type="Queue" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;" id="queue">
+          <mxCell style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+            <mxGeometry x="730" y="50" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        
+        <!-- Lifelines -->
+        <mxCell id="ui2-lifeline" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="110" y="130" as="sourcePoint" />
+            <mxPoint x="110" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="api2-lifeline" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="130" as="sourcePoint" />
+            <mxPoint x="280" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="db2-lifeline" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="130" as="sourcePoint" />
+            <mxPoint x="450" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="cache2-lifeline" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="620" y="130" as="sourcePoint" />
+            <mxPoint x="620" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="queue-lifeline" style="endArrow=none;dashed=1;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="790" y="130" as="sourcePoint" />
+            <mxPoint x="790" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Sequence Messages -->
+        <mxCell id="seq1" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="110" y="170" as="sourcePoint" />
+            <mxPoint x="280" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq1-label" value="POST /orders/123/status" style="text;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="130" y="145" width="140" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="note1" value="BEGIN TRANSACTION" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#000000;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;size=20;" vertex="1" parent="1">
+          <mxGeometry x="290" y="190" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="seq2" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="240" as="sourcePoint" />
+            <mxPoint x="450" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq2-label" value="UPDATE orders SET status=..." style="text;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="300" y="215" width="130" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="seq3" style="endArrow=block;html=1;strokeWidth=2;dashed=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="270" as="sourcePoint" />
+            <mxPoint x="280" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq3-label" value="1 row updated" style="text;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="320" y="245" width="90" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="seq4" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="300" as="sourcePoint" />
+            <mxPoint x="620" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq4-label" value="SET mes:order:123:v1 + DEL affected lists" style="text;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="320" y="275" width="240" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="note2" value="COMMIT TRANSACTION" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#000000;darkOpacity=0.05;fillColor=#d5e8d4;strokeColor=#82b366;size=20;" vertex="1" parent="1">
+          <mxGeometry x="290" y="320" width="120" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="seq5" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="370" as="sourcePoint" />
+            <mxPoint x="790" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq5-label" value="publish order.status_changed" style="text;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="430" y="345" width="160" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="seq6" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="400" as="sourcePoint" />
+            <mxPoint x="110" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq6-label" value="200 OK (consistent data)" style="text;html=1;align=center;color=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="130" y="375" width="140" height="20" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
